@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "strict": true,
+    "noImplicitOverride": true,
+    "module": "esnext",
+    "target": "es2020",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "noEmit": true
+  },
+  "include": ["src"]
+}

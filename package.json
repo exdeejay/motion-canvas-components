@@ -1,0 +1,15 @@
+{
+  "name": "motion-canvas-components",
+  "version": "0.1.0",
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@motion-canvas/2d": "^2.3.0",
+    "@motion-canvas/core": "^2.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  }
+}
