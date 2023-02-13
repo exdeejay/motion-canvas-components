@@ -2,16 +2,21 @@
   "compilerOptions": {
     "baseUrl": "src",
     "strict": true,
-    "noImplicitOverride": true,
     "module": "esnext",
-    "target": "es2020",
+    "target": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "declaration": true,
     "declarationMap": true,
+    "inlineSourceMap": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
-    "noEmit": true
+    "jsx": "react-jsx",
+    "jsxImportSource": "@motion-canvas/2d/lib",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@motion-canvas/2d/lib/jsx-runtime": ["jsx-runtime.ts"]
+    }
   },
   "include": ["src"]
 }
