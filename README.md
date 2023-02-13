@@ -1,12 +1,13 @@
 # motion-canvas-components
 
-A component library for [Motion Canvas](https://motion-canvas.github.io/). Feel free to fork and/or PR!
+A component library including a Terminal and Polygons for [Motion Canvas](https://motion-canvas.github.io/) from [exdeejay](https://github.com/exdeejay). Feel free to fork and/or PR!
 
 ## Installation
 
 ```
-git clone https://github.com/exdeejay/motion-canvas-components.git
+git clone https://github.com/dct-LuLu/motion-canvas-components.git
 cd motion-canvas-components
+npm install
 npm link
 ```
 
@@ -28,4 +29,15 @@ export default defineConfig({
     }
   }
 });
+```
+Don't forget that you may need to import the path module:
+
+```ts
+import * as path from 'path';
+```
+
+You may need to run the following command in order to use 'path':
+
+```ts
+npm install --save-dev @types/node
 ```
