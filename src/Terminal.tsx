@@ -5,6 +5,7 @@ import { createRef, debug } from "@motion-canvas/core/lib/utils";
 import { loop, waitFor } from "@motion-canvas/core/lib/flow";
 import { InterpolationFunction, TimingFunction } from "@motion-canvas/core/lib/tweening";
 import { Text, Rect, RectProps } from "@motion-canvas/2d/lib/components";
+import type { PossibleColor } from "@motion-canvas/core/lib/types/Color.d.ts";
 
 export interface TerminalProps extends RectProps {
   cursorType?: 'none' | 'line' | 'block',
@@ -65,15 +66,41 @@ export class Terminal extends Rect {
     }
   }
   
-  public *prompt() {
+
+  /**
+  * Makes the terminal prompt
+  *
+  *  @param promptText - The prompt of the terminal
+  *  @param color - The prompt color
+  */
+  public *prompt(promptText: string = '$ ', color: PossibleColor = "#4d3") {
     this.add(
       <Rect layout>
-        <Text text={'$ '} {...this.textStyle} fill="#4d3" fontWeight={800} />
+        <Text text={promptText} {...this.textStyle} fill={color} fontWeight={800} />
         {this.cursor}
       </Rect>
     )
     yield* this.blink();
     return this;
+  }
+
+  /**
+  * Clears the terminal.
+  *
+  *  @param fakeClear - When set to `true`, clear will be typed in the 
+                        terminal before clearing it. Setting it to 
+                        `false` instantly clears the terminal.
+  *  @param time - The time after clear is typed to clean the terminal 
+  */
+  public *clear(fakeClear: boolean = true, time: number = 0.2) {
+    if (fakeClear) {
+      yield* this.type("clear", 1);
+      yield* waitFor(time);
+    }
+    for (const item of this.children()) {
+      item.remove()
+    }
+    yield* this.prompt()
   }
   
   public *type(content: string, time: number, timingFunction?: TimingFunction, interpolationFunction?: InterpolationFunction<string>) {
@@ -100,7 +127,7 @@ export class Terminal extends Rect {
   public line(content: string) {
     let [first, ...lines] = content.split('\n');
     let last = this.children()[this.children().length - 1];
-    debug(last.children().map(i => Object.getPrototypeOf(i).constructor == Text));
+    //debug(last.children().map(i => Object.getPrototypeOf(i).constructor == Text)); //Causes
     let textElems = last.children().filter((i): i is Text => Object.getPrototypeOf(i).constructor === Text)
     let lastText = textElems[textElems.length - 1];
     lastText.text(lastText.text() + first);
