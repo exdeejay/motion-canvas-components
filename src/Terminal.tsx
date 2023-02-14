@@ -50,7 +50,7 @@ export class Terminal extends Rect {
   }
   
   public *blink(enable: boolean = true): ThreadGenerator {
-    if (enable) {
+    if (enable && this.cursorBlinkTask === null) {
       this.cursorBlinkTask = yield loop(Infinity, function* (this: Terminal) {
         this.cursor.fill(null);
         yield* waitFor(this.blinkSpeed()/2);
