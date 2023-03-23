@@ -1,15 +1,28 @@
 {
-  "name": "motion-canvas-components",
-  "version": "0.1.0",
-  "main": "./src/index.ts",
+  "name": "@dct-lulu/motion-canvas-terminal",
+  "author": "Doctor LuLu",
+  "version": "0.1.3",
+  "description": "A terminal component for Motion Canvas",
+  "main": "lib/index.ts",
+  "types": "lib/index.d.ts",
+  "keywords": [
+    "motion-canvas",
+    "canvas",
+    "component",
+    "animation"
+  ],
   "scripts": {
     "build": "tsc"
   },
+  "files": [
+    "lib/**/*"
+  ],
+  "license": "MIT",
   "dependencies": {
-    "@motion-canvas/2d": "^2.3.0",
-    "@motion-canvas/core": "^2.3.0"
+    "@motion-canvas/2d": "^3.3.0",
+    "@motion-canvas/core": "^3.3.0"
   },
   "devDependencies": {
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.0"
   }
 }

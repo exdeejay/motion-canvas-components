@@ -4,7 +4,7 @@ import { cancel, ThreadGenerator } from "@motion-canvas/core/lib/threading";
 import { createRef, debug } from "@motion-canvas/core/lib/utils";
 import { loop, waitFor } from "@motion-canvas/core/lib/flow";
 import { InterpolationFunction, TimingFunction } from "@motion-canvas/core/lib/tweening";
-import { Text, Rect, RectProps } from "@motion-canvas/2d/lib/components";
+import { Txt, Rect, RectProps } from "@motion-canvas/2d/lib/components";
 import type { PossibleColor } from "@motion-canvas/core/lib/types/Color.d.ts";
 
 export interface TerminalProps extends RectProps {
@@ -76,7 +76,7 @@ export class Terminal extends Rect {
   public *prompt(promptText: string = '$ ', color: PossibleColor = "#4d3") {
     this.add(
       <Rect layout>
-        <Text text={promptText} {...this.textStyle} fill={color} fontWeight={800} />
+        <Txt text={promptText} {...this.textStyle} fill={color} fontWeight={800} />
         {this.cursor}
       </Rect>
     )
@@ -106,9 +106,9 @@ export class Terminal extends Rect {
   public *type(content: string, time: number, timingFunction?: TimingFunction, interpolationFunction?: InterpolationFunction<string>) {
     yield* this.blink(false);
     const last = this.children()[this.children().length - 1];
-    const text = createRef<Text>();
+    const text = createRef<Txt>();
     last.add(
-      <Text ref={text} {...this.textStyle} />
+      <Txt ref={text} {...this.textStyle} />
     )
     last.add(this.cursor)
     yield* text().text(content, time, timingFunction, interpolationFunction);
@@ -118,7 +118,7 @@ export class Terminal extends Rect {
   public newline() {
     this.add(
       <Rect layout>
-        <Text {...this.textStyle} />
+        <Txt {...this.textStyle} />
         {this.cursor}
       </Rect>
     )
@@ -127,14 +127,14 @@ export class Terminal extends Rect {
   public line(content: string) {
     let [first, ...lines] = content.split('\n');
     let last = this.children()[this.children().length - 1];
-    //debug(last.children().map(i => Object.getPrototypeOf(i).constructor == Text)); //Causes
-    let textElems = last.children().filter((i): i is Text => Object.getPrototypeOf(i).constructor === Text)
+    //debug(last.children().map(i => Object.getPrototypeOf(i).constructor == Txt)); //Causes
+    let textElems = last.children().filter((i): i is Txt => Object.getPrototypeOf(i).constructor === Txt)
     let lastText = textElems[textElems.length - 1];
     lastText.text(lastText.text() + first);
     lines.map(l => {
       this.add(
         <Rect layout>
-          <Text text={l} {...this.textStyle} />
+          <Txt text={l} {...this.textStyle} />
         </Rect>
       )
     })
